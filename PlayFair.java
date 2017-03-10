@@ -89,6 +89,36 @@ public class PlayFair {
         return ciphertex.toString();
     }
     
+     public String decrypt(String[] pairs, String matrix) {
+
+        StringBuilder ciphertex = new StringBuilder();
+
+        for (String pair : pairs) {//using zero index
+            byte row1 = (byte) (matrix.indexOf(pair.charAt(0)) / 5);
+            byte col1 = (byte) (matrix.indexOf(pair.charAt(0)) % 5);
+            byte row2 = (byte) (matrix.indexOf(pair.charAt(1)) / 5);
+            byte col2 = (byte) (matrix.indexOf(pair.charAt(1)) % 5);
+            //System.out.println("char 1 " + pair.charAt(0) + "  at " + row1 + "   " + col1);
+            //System.out.println("char 2 " + pair.charAt(1) + "  at " + row2 + "   " + col2);
+
+            char chr1;
+            char chr2;
+            if (col1 == col2) {
+                chr2 = matrix.charAt(((row2 - 1) % 5 * 5 + col2));
+                chr1 = matrix.charAt(((row1 - 1) % 5 * 5 + col1));
+            } else if (row1 == row2) {
+                chr1 = matrix.charAt(row1 * 5 + ((col1 - 1) % 5));
+                chr2 = matrix.charAt(row2 * 5 + ((col2 - 1) % 5));
+            } else {
+                chr1 = matrix.charAt(row1 * 5 + col2);
+                chr2 = matrix.charAt(row2 * 5 + col1);
+            }
+            ciphertex.append(Character.toString(chr1) + Character.toString(chr2));
+        }
+
+        return ciphertex.toString();
+    }
+    
     
     /* Test */
     public static void main(String[] args) {
@@ -110,8 +140,9 @@ public class PlayFair {
             System.out.print(chrs[i]);
         }
         
-       String ciphertex=pf.encrypt(pairs, matrix);
-       System.out.println("\nEncrypted message: " + ciphertex);
-
+       String ciphertext=pf.encrypt(pairs, matrix);
+       System.out.println("\nEncrypted message: " + ciphertext);
+       System.out.println("Recovered message: " + pf.decrypt(pf.divideToPairs(ciphertext), matrix));
     }
+    
 }

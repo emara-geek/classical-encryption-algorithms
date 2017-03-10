@@ -51,14 +51,32 @@ public class MonoAlphabetic {
 
         return ciphertext.toString();
     }
+    
+    public String decrypt(String ciphertext, String key) {
+        StringBuilder plaintext = new StringBuilder();
+
+        for (char chr : ciphertext.toLowerCase().toCharArray()) {
+            byte position = (byte) key.indexOf(chr);
+            if (chr == ' ') {
+                plaintext.append(" ");
+            } else {
+                plaintext.append(alphabet.charAt(position));
+            }
+        }
+
+        return plaintext.toString();
+    }
 
     /* Test */
     public static void main(String[] args) {
         String plaintext="monoalphabetic encryption algorithm";
         MonoAlphabetic mono = new MonoAlphabetic();
         String key=mono.getCharsPermutation();
-        System.out.println("Plaintext : "+plaintext +"\nAlphabet  : "+alphabet+"\nwith key  : "+key);
-        System.out.println(mono.encrypt(plaintext, key));
+        System.out.println("Plaintext : "+plaintext +"\nAlphabet  : "+alphabet+"\nkey       : "+key);
+        String ciphertext=mono.encrypt(plaintext, key);
+        System.out.println("Ciphertext message: "+ciphertext);
+        System.out.println("Recovered message : " +mono.decrypt(ciphertext,key ));
+        
 
     }
 }

@@ -2,6 +2,6 @@
 
 * Ceaser Cipher 
 
-* Monoalphabetic
+* Monoalphabetic Cipher
 
 * Playfair Cipher

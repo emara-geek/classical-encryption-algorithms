@@ -1,7 +1,7 @@
 #Implementation of classical encryption algorithms in Java:
 
-1- Ceaser Cipher 
+* Ceaser Cipher 
 
-2- Monoalphabetic
+* Monoalphabetic
 
-3- Playfair
+* Playfair Cipher
